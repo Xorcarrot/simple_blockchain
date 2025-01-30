@@ -5,7 +5,7 @@ use sha2::{Sha256, Digest};
 use crate::max_attempts_error::MaxAttemptsError;
 
 const MAX_ATTEMPTS: usize = 10000000;
-const DIFFICULTY: usize = 3;
+const DIFFICULTY: usize = 2;
 
 
 #[derive(Serialize, Deserialize, Debug)]

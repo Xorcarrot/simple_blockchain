@@ -53,7 +53,6 @@ pub fn insert_block(block_json: &str) -> bool {
     false
 }
 
-
 fn build_session_storage() -> Option<Storage> {
     if let Some(window) = web_sys::window() {
          if let Ok(Some(storage)) = window.session_storage() {
