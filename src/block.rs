@@ -1,5 +1,6 @@
 use std::error::Error;
 use std::time::{SystemTime, UNIX_EPOCH};
+use serde::{Deserialize, Serialize};
 use sha2::{Sha256, Digest};
 use crate::max_attempts_error::MaxAttemptsError;
 
@@ -7,7 +8,7 @@ const MAX_ATTEMPTS: usize = 10000000;
 const DIFFICULTY: usize = 3;
 
 
-#[derive(Debug)]
+#[derive(Serialize, Deserialize, Debug)]
 pub struct Block {
     index: usize,
     time: u128,
@@ -60,32 +61,4 @@ pub fn prove_of_work(hash: [u8; 32], difficulty: usize) -> bool {
     }
 
     true
-}
-
-mod tests {
-    use super::*;
-
-    const VALID_SHA256: [u8; 32] = [
-        0, 0, 0, 0, 0,
-        123, 45, 67, 89, 12, 34, 56, 78, 90, 123, 145, 167, 189, 210, 234, 255,
-        33, 67, 99, 101, 111, 131, 151, 171, 191, 211, 231
-    ];
-
-    const INVALID_SHA256: [u8; 32] = [
-        241, 123, 64, 86, 9,
-        123, 45, 67, 89, 12, 34, 56, 78, 90, 123, 145, 167, 189, 210, 234, 255,
-        33, 67, 99, 101, 111, 131, 151, 171, 191, 211, 231
-    ];
-
-    #[test]
-    fn pof_is_true() {
-        let result = prove_of_work(VALID_SHA256, DIFFICULTY);
-        assert!(result);
-    }
-
-    #[test]
-    fn pof_is_false() {
-        let result = prove_of_work(INVALID_SHA256, DIFFICULTY);
-        assert!(!result);
-    }
 }

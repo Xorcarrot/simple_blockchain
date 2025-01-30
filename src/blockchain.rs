@@ -1,8 +1,10 @@
 use std::error::Error;
+use serde::{Deserialize, Serialize};
 use crate::block::Block;
 
 const GENESIS_HASH: [u8; 32] = [0; 32];
 
+#[derive(Serialize, Deserialize)]
 pub struct Blockchain {
     vector: Vec<Block>,
 }
