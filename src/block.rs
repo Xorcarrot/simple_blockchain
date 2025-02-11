@@ -1,5 +1,5 @@
 use std::error::Error;
-use std::time::{SystemTime, UNIX_EPOCH};
+use js_sys::Date;
 use serde::{Deserialize, Serialize};
 use sha2::{Sha256, Digest};
 use crate::max_attempts_error::MaxAttemptsError;
@@ -19,7 +19,7 @@ pub struct Block {
 
 impl Block {
     pub fn create(index: usize, last_hash: [u8; 32], data: String) -> Result<Block, Box<dyn Error>> {
-        let time = SystemTime::now().duration_since(UNIX_EPOCH)?.as_millis();
+        let time = Date::now() as u128;
 
         let mut attempt: usize = 0;
         let current_hash = loop {
